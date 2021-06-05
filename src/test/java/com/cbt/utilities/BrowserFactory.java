@@ -9,34 +9,29 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class BrowserFactory {
 
-
+    private static String operatingSystem = System.getProperty("os.name");
 
     public static WebDriver getDriver(String browserType){
-    WebDriver driver=null;
-    if(browserType.toLowerCase ().equalsIgnoreCase ( "chrome" )){
-        WebDriverManager.chromedriver ().setup ();
-        return  new ChromeDriver();
-
-    }if(browserType.toLowerCase ().equalsIgnoreCase ( "firefox" )){
-
-        WebDriverManager.firefoxdriver ().setup ();
-        return new FirefoxDriver();
-        }if(browserType.toLowerCase().equals("edge")&& System.getProperty("os.name").contains("Windows")){
-        WebDriverManager.edgedriver ().setup ();
-        return new EdgeDriver();
-
-        }if ((browserType.toLowerCase().equals("safari")&&System.getProperty("os.name").contains("Mac"))){
-
-            return new SafariDriver();
-
-        }else{
-        return driver;
+        WebDriver driver=null;
+        if(browserType.toLowerCase ().equalsIgnoreCase ( "chrome" )){
+            WebDriverManager.chromedriver ().setup ();
+            return  new ChromeDriver();
         }
+        
+        else if(browserType.toLowerCase ().equalsIgnoreCase ( "firefox" )){
 
+            WebDriverManager.firefoxdriver ().setup ();
+            return new FirefoxDriver();
+        }
+        else if(browserType.toLowerCase().equals("edge") && operatingSystem.contains("Windows")){
+            WebDriverManager.edgedriver ().setup ();
+            return new EdgeDriver();
+        }
+        else if((browserType.toLowerCase().equals("safari") && operatingSystem.contains("Mac"))){
+            return new SafariDriver();
+        }
+        else{
+            return driver;
+        }
     }
-
-
-
-
-
 }
